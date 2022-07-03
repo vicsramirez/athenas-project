@@ -21,7 +21,7 @@ def main():
 
 
     fecha_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[2]/div/div/input")
-    fecha_box.send_keys("27/06/2022")
+    fecha_box.send_keys("28/06/2022")
 
     categoria_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[3]/div/div/div/div[1]/div[2]/div/input")
     categoria_box.send_keys("Implementación")
@@ -32,7 +32,7 @@ def main():
     proyecto_box.send_keys(Keys.TAB)
 
     actividad_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[6]/div/div[2]/input")
-    actividad_box.send_keys("Revisión interna Proyecto AGP - Servidor Lenovo")
+    actividad_box.send_keys("Presentación Área de Proyectos e Ingeniería para instalación Servidor Monterrey")
 
     horas_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[7]/div/div[2]/input")
     horas_box.send_keys("1")
@@ -41,4 +41,5 @@ def main():
     remitir_box.submit()
 
     time.sleep(5)
+
 main()

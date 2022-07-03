@@ -1,2 +1,5 @@
 selenium==4.3.0
 chromedriver-py==103.0.5060.53
+requests
+azure-identity
+msgraph-core
