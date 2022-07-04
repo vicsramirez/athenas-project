@@ -24,10 +24,10 @@ def openConnection():
 
     #response = requests.post(url,data=body)
     #if response.status_code == 200:
-    #    #auth_response = response.json()
+    #    auth_response = response.json()
 
     #url_calendar = "https://graph.microsoft.com/v1.0/users/Victor.Sanchez/calendar/events?$filter=startsWith(subject,'REQ')"
-    #url_calendar = "https://graph.microsoft.com/v1.0/users/Victor.Sanchez@entersoluciones.com/calendarview?startdatetime=2022-06-28T00:00:00.0Z&enddatetime=2022-06-28T23:59:26.061Z"
+    #url_calendar = "https://graph.microsoft.com/v1.0/users/Victor.Sanchez@entersoluciones.com/calendarview?startdatetime=2022-06-29T00:00:00.0Z&enddatetime=2022-06-29T23:59:26.061Z"
     #headers_with_token = {"Content-type": "application/json","Authorization": "Bearer " + auth_response["access_token"]}
 
     #response_calendar = requests.get(url_calendar,headers=headers_with_token)
@@ -36,26 +36,27 @@ def openConnection():
     #    print("==========================================================")
     #    print(calendar_data)
     #    print("==========================================================")
-    lines = ""
+    #lines = ""
     with open("response.json",encoding="utf-8") as f:
         lines = f.readlines()
     print(lines)
     strlines = '\n'.join(lines)
 
     body = json.loads(strlines)
-    print(len(body))
 
+    #parserResponse(calendar_data)
     parserResponse(body)
-
 
 def parserResponse(body: object):
     meetings = []
-    print(len(body))
+
+
     for meeting in body:
         activity = Activity(meeting)
         meetings.append(activity)
+        print(activity)
 
-    print("Resultados=========")
-    print(meetings)
+
+
 
 openConnection()
