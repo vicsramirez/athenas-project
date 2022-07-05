@@ -1,45 +1,25 @@
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-
-
-from selenium.webdriver.chrome.service import Service
-from chromedriver_py import binary_path
-
-
-
 import time
+from datetime import datetime
 
-def main():
-    service_object = Service(binary_path)
-    chrome = webdriver.Chrome(service=service_object)
-    print("Continuando...")
-    chrome.get("https://app.smartsheet.com/b/form/f45cd2847d4749a8935336c2f14be061")
-    name_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[1]/div/div/div/div[1]/div[2]/div/input")
-    name_box.send_keys("Víctor Sánchez")
-    name_box.send_keys(Keys.TAB)
+from SeleniumClass import SeleniumClass
+from O365Connect import O365Class
 
 
-    fecha_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[2]/div/div/input")
-    fecha_box.send_keys("28/06/2022")
+print(f"Iniciando la captura....")
 
-    categoria_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[3]/div/div/div/div[1]/div[2]/div/input")
-    categoria_box.send_keys("Implementación")
-    categoria_box.send_keys(Keys.TAB)
+format = '%Y-%m-%d'
+fecha_consulta = datetime.now().strftime(format)
+print("Consultando actividades para " + fecha_consulta)
+O365Class.openConnection(fecha_consulta)
 
-    proyecto_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[4]/div/div/div/div[1]/div[2]/div/input")
-    proyecto_box.send_keys("4020227")
-    proyecto_box.send_keys(Keys.TAB)
-
-    actividad_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[6]/div/div[2]/input")
-    actividad_box.send_keys("Presentación Área de Proyectos e Ingeniería para instalación Servidor Monterrey")
-
-    horas_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[7]/div/div[2]/input")
-    horas_box.send_keys("1")
-
-    remitir_box = chrome.find_element(By.XPATH,"/html/body/div[1]/div/div/div/section[2]/div/div/form/div[9]/button")
-    remitir_box.submit()
-
-    time.sleep(5)
-
-main()
+if O365Class.body != None:
+    _activities = O365Class.parserResponse(O365Class.body)
+    selenium = SeleniumClass()
+    if len(_activities) > 0:
+        selenium = SeleniumClass()
+        for activitie in _activities:
+            if selenium != None:
+                selenium.captureTask(activitie)
+                time.sleep(5)
+        selenium.close()
+        print(f"Termine de capturar {len(_activities)} actividades")

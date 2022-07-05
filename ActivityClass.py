@@ -23,7 +23,10 @@ class Activity:
 
         now = datetime.now()
         self.name = "Víctor Sánchez"
-        self.date = now.strftime("%d/%m/%y")
+        self.date = data["start"]["dateTime"][0:data["start"]["dateTime"].find("T")]
+        self.date = re.sub('^([0-9]*)-([0-9]*)-([0-9]*)$','\\3/\\2/\\1',self.date) # Se invierte el formato
+
+        #self.date = now.strftime("%d/%m/%y")
 
         #
         # Sí la categoría de la actividad en el calendario es 402 es proyecto.
